@@ -1,0 +1,88 @@
+
+<html>
+
+<head>
+  <title>Login Page</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <script type='text/javascript'>
+  setInterval(updatePage, 2000);
+
+  function updatePage() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', "http://localhost:1989/getMessage", true);
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var ajaxResponse = this.responseText;
+          if(ajaxResponse.includes('Welcome'))
+            document.getElementById('mybox').outerHTML = "";
+        document.getElementById('mymessage').textContent = ajaxResponse;
+      }
+    };
+    xhttp.send();
+  }
+  </script>
+  <style type='text/css'>
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  form {
+    margin-left: 20px
+  }
+  
+  input {
+    padding: 12px 20px;
+    border: 3px solid #ccc;
+    margin-bottom: 20px;
+  }
+  
+.box {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  border-radius: 15px;
+  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+}
+  
+.response {
+  position: absolute;
+  top: -35px;
+  margin-left: 5px;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.newpass{
+  position: absolute;
+  top: 250px;
+  margin-left: 40px;
+  font-size: 20px;
+}
+
+.gesture {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 100px;
+  font-size: 120%;
+}
+
+.bigboss{
+  position: relative;
+  margin-left: -125px;
+  margin-top: 150px;
+  left: 50%;
+}
+
+  
+ input:hover{
+  border: 3px solid #999;
+}
+  </style>
+</head>
+
+<body>
+$ 
+%
+</body>
+
+</html>
