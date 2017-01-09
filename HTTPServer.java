@@ -51,6 +51,9 @@ public class HTTPServer implements Runnable {
 	@Override
 	public void run() {
 		read();
+		if(reqType == 3){
+			close(); //This is in case favicon is requested
+		}
 		checkPassword();
 		if (toDisplay == 2 && reqType == 0)
 			checkGesturePassword();
@@ -74,7 +77,7 @@ public class HTTPServer implements Runnable {
 		message = "Connecting to gesture device";
 		send();
 		close();
-		SerialTest Arduino = new SerialTest();
+		SerialTest Arduino = new SerialTest("COM13");
 		Arduino.initialize();
 		System.err.println("Gesture device is connected");
 		message = "Gesture device connected";
@@ -128,6 +131,9 @@ public class HTTPServer implements Runnable {
 				} else if(s.startsWith("GET /setPassword")){
 					reqType = 2;
 					System.out.println("reqType2");
+				} else if(s.startsWith("GET /favicon.ico")){
+					reqType = 3;
+					System.out.println("reqType3 (Favicon)");
 				} else if (s.startsWith("GET")) {
 					reqType = 0;
 					System.out.println("reqType0");
@@ -168,7 +174,7 @@ public class HTTPServer implements Runnable {
 		message = "Connecting to gesture device";
 		send();
 		close();
-		SerialTest Arduino = new SerialTest();
+		SerialTest Arduino = new SerialTest("COM13");
 		Arduino.initialize();
 		System.err.println("Gesture device is connected");
 		message = "Gesture device connected";
