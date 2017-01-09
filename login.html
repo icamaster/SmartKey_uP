@@ -9,16 +9,24 @@
 
   function updatePage() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open('POST', "http://localhost:1989/getMessage", true);
+    xhttp.open("POST", "http://localhost:1989/getMessage", true);
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var ajaxResponse = this.responseText;
           if(ajaxResponse.includes('Welcome'))
-            document.getElementById('mybox').outerHTML = "";
+            document.getElementById('mybox').outerHTML = "<button class='myButton' onclick='postDoorToggle(&quot;close&quot;)'>Close Door</button><button class='myButton' onclick='postDoorToggle(&quot;open&quot;)'>Open Door</button>"
         document.getElementById('mymessage').textContent = ajaxResponse;
       }
     };
-    xhttp.send();
+    xhttp.send(null);
+  }
+
+  function postDoorToggle(message){
+    var xhttp = new XMLHttpRequest();
+    var postMessage = "http://localhost:1989/toggleDoor";
+    postMessage += message;
+    xhttp.open("POST", postMessage, true);
+    xhttp.send(null);
   }
   </script>
   <style type='text/css'>
@@ -30,7 +38,7 @@
     margin-left: 20px
   }
   
-  input {
+  input, .myButton {
     padding: 12px 20px;
     border: 3px solid #ccc;
     margin-bottom: 20px;
@@ -55,8 +63,7 @@
 .newpass{
   position: absolute;
   top: 250px;
-  margin-left: 40px;
-  font-size: 20px;
+  margin-left: 20px;
 }
 
 .gesture {
@@ -74,10 +81,15 @@
 }
 
   
- input:hover{
+input:hover, .myButton:hover{
   border: 3px solid #999;
 }
+
+.myButton:active{
+  color: #ccc;
+}
   </style>
+
 </head>
 
 <body>
